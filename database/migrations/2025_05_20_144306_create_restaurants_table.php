@@ -15,7 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->timestamps();
+            $table->string('street');
+            $table->string('street_number');
+            $table->string('city');
+            $table->string('phone');
+            $table->string('email')->unique();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps('created_at');
         });
     }
 
