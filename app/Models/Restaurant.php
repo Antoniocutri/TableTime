@@ -18,6 +18,14 @@ class Restaurant extends Model
         'city',
         'phone',
         'email',
+        'user_id',
     ];
 
+    public function restaurant_schedules() {
+        return $this->hasMany(Restaurant_schedule::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

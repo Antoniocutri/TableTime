@@ -34,6 +34,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function restaurant() {
+        return $this->hasMany(Restaurant::class);
+    }
     /**
      * Get the attributes that should be cast.
      *
