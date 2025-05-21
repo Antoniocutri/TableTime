@@ -34,12 +34,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function restaurant() {
+    public function restaurants() {
         return $this->hasMany(Restaurant::class);
     }
 
-    public function reservation() {
+    public function reservations() {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
     }
     /**
      * Get the attributes that should be cast.

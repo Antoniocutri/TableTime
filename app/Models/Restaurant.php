@@ -31,11 +31,15 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function table() {
+    public function tables() {
         return $this->hasMany(ModelsTable::class);
     }
 
-    public function reservation() {
+    public function reservations() {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
     }
 }
