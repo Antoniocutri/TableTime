@@ -19,8 +19,6 @@ return new class extends Migration
             $table->tinyInteger('rating');
             $table->text('comment')->nullable();
 
-            $table->check('rating >= 0 AND rating <= 5');
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
 

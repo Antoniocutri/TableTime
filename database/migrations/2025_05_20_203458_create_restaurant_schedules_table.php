@@ -23,8 +23,6 @@ return new class extends Migration
             $table->boolean('is_lunch_closed')->default(false);
             $table->boolean('is_dinner_closed')->default(false);
 
-            $table->check('day_of_week >= 0 AND day_of_week <= 6');
-
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->timestamps();
         });
