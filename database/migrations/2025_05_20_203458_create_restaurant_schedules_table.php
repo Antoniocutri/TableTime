@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('restaurant_schedules', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('restaurant_id ');
+            $table->unsignedBigInteger('restaurant_id');
 
             $table->tinyInteger('week_day');
             $table->time('lunch_opening')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->check('day_of_week >= 0 AND day_of_week <= 6');
 
-            $table->foreign('restaurant_id ')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->timestamps();
         });
     }

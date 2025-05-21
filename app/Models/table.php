@@ -20,4 +20,8 @@ class table extends Model
         return $this->belongsTo(Restaurant::class);
     }
 
+    public function reservation() {
+        return $this->hasMany(Reservation::class);
+    }
+
 }
