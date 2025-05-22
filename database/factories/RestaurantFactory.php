@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,14 @@ class RestaurantFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name'=> fake()->company(),
+            'description' => fake()->sentence(),
+            'street' => fake()->streetName(),
+            'street_number' => fake()->numberBetween(1,100),
+            'city' => fake()->city(),
+            'phone' => fake()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
+            'user_id' =>  User::where('role', 'owner')->inRandomOrder()->first()->id,
         ];
     }
 }
