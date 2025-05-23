@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('restaurant_id ');
+            $table->unsignedBigInteger('restaurant_id');
             
             $table->smallInteger('table_number')->unsigned();
             $table->tinyInteger('seats')->unsigned();// number of seats available for that table
 
-            $table->foreign('restaurant_id ')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->timestamps();
         });
     }
