@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ReviewSeeder::class);
         $this->call(TableSeeder::class);
         $this->call(RestaurantScheduleSeeder::class);
+        $this->call(ReservationSeeder::class);
     }
 }
