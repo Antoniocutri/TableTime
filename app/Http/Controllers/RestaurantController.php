@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ApiResponseClass;
 use App\Models\Restaurant;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
+use App\Http\Resources\RestaurantResource;
+use App\Repositories\RestaurantRepository;
 
 class RestaurantController extends Controller
 {
+
+    public function __construct(protected RestaurantRepository $restaurantRepository){
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $data = $this->restaurantRepository->index();
+
+        return ApiResponseClass::sendResponse(RestaurantResource::collection($data),'',200);
     }
 
     /**
