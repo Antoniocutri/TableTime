@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Restaurant;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRestaurantRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateRestaurantRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,13 @@ class UpdateRestaurantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required','string','max:255'],
+            'description' => ['required','string'],
+            'street' => ['required','string'],
+            'street_number'=> ['required','string'],
+            'city' => ['required','string','max:255'],
+            'phone' => ['required','string','max:20'],
+            'email' => ['required','string','email','lowercase','max:255',Rule::unique(Restaurant::class)->ignore($this->restaurant->id)]
         ];
     }
 }
