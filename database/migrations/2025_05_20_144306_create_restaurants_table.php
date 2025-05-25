@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps('created_at');
+            $table->timestamps();
         });
     }
 
