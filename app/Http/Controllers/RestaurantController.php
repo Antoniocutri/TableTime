@@ -44,9 +44,11 @@ class RestaurantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Restaurant $restaurant)
+    public function show($id)
     {
-        //
+        $restaurant = $this->restaurantRepository->getById($id);
+
+        return ApiResponseClass::sendResponse(new RestaurantResource($restaurant),'',200);
     }
 
     /**
@@ -68,8 +70,10 @@ class RestaurantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Restaurant $restaurant)
+    public function destroy($id)
     {
-        //
+        $this->restaurantRepository->delete($id);
+
+        return ApiResponseClass::sendResponse('Product Delete Successful','',204);
     }
 }
