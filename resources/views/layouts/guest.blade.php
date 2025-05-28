@@ -15,8 +15,17 @@
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     </head>
+    <style>
+        body {
+            background-color: #EFE9DC ;
+        }
+        .bg-white {
+            --tw-bg-opacity: 1;
+            background-color: #F0F0F0;
+            }
+</style>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
             <div>
                 <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
