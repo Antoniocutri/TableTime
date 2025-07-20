@@ -18,12 +18,7 @@
         <!-- Role select -->
         <div class="mt-4">
             <x-input-label for="role_select" value="Selezionare il ruolo" />
-            <div id="role_select" class="mt-1 w-50" required></div>
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-        <div id="prova" class="mt-4 d-none">
-            <x-input-label for="role_select" value="Selezionare il ruolofffffffff" />
-            <div id="role" class="mt-1 w-50" required></div>
+            <div id="role_select" class="mt-1 w-100" required></div>
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
