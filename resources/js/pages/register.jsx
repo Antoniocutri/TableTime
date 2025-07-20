@@ -9,21 +9,99 @@ export default function RoleSelect() {
   };
 
   return (
-    <div>
-      <select name="role_select" className="form-select " value={role} onChange={handleChange}>
+    <>
+      <select name="role_select" className="form-select w-50" value={role} onChange={handleChange}>
         <option value="" selected disabled hidden>Inserisci il Ruolo</option>
         <option value="customer">Cliente</option>
         <option value="owner">Ristoratore</option>
       </select>
-      {role === "owner" && <ShowDiv />}
-      </div>
+      {role === "owner" && <Register/>}
+    </>
   );
 }
 
-const ShowDiv = () => {
-    const externalDiv = document.getElementById("prova");
-    if (externalDiv) {
-      externalDiv.classList.remove('d-none')
-      externalDiv.classList.add('d-block') // o inline, flex, ecc.
-    }
-  };
+  function Register(){
+    let [city, setCity] = useState();
+    let [street, setStreet] = useState();
+    let [phone, setPhone] = useState();
+    let [description, setDescription] = useState();
+
+    return (
+      <>
+        <div className="mt-4">
+            <TextInput 
+              label='Inserire la città' 
+              name='city'
+              value={city}
+              onChange={(e) => setCity(e.target.value)}>
+              </TextInput>
+        </div>
+
+        <div className="mt-4">
+            <TextInput 
+              label="Inserire l'indirizzo" 
+              name='street'
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}>
+              </TextInput>
+        </div>
+
+        <div className="mt-4">
+            <TextInput 
+              label="Inserire il numero di telefono" 
+              name='phone'
+              type='tel'
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}>
+              </TextInput>
+        </div>
+
+        <div className="mt-4">
+          <TextArea
+            label='Inserire una descrizione'
+            name = 'restaurant_description'
+            placeholder = 'Inserire una descrizione'
+            value = {description}
+            onChange={(e) => setDescription(e.target.value)}>
+          </TextArea>
+        </div>
+      </>
+    );
+  }
+
+  const TextInput = ({ label, name, value, onChange, placeholder = "", type = "text", width = 'w-50' }) => {
+  return (
+    <>
+      <label htmlFor={name} className="block font-medium text-sm text-gray-700">
+        {label}
+      </label>
+      <input
+        type={type}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={"border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm " + width}
+      />
+    </>
+  );
+};
+
+const TextArea = ({label, name, value, onChange, placeholder = ''}) => {
+  return (
+    <>
+      <label htmlFor={name} className="block font-medium text-sm text-gray-700">
+          {label}
+        </label>
+      <textarea
+        name={name}
+        id={name}
+        placeholder = {placeholder}
+        value={value}
+        onChange={onChange}
+        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-100"
+    />
+  </>)
+
+}
