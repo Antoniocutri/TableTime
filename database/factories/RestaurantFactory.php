@@ -21,7 +21,6 @@ class RestaurantFactory extends Factory
             'name'=> fake()->company(),
             'description' => fake()->sentence(),
             'street' => fake()->streetName(),
-            'street_number' => fake()->numberBetween(1,100),
             'city' => fake()->city(),
             'phone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
