@@ -21,10 +21,44 @@ export default function RoleSelect() {
 }
 
   function Register(){
-    let [city, setCity] = useState();
-    let [street, setStreet] = useState();
-    let [phone, setPhone] = useState();
-    let [description, setDescription] = useState();
+    let [city, setCity] = useState('');
+    let [street, setStreet] = useState('');
+    let [phone, setPhone] = useState('');
+    let [description, setDescription] = useState('');
+    const [error, setError] = useState('');
+    const [errorStreet, setErrorStreet] = useState('');
+    const [errorPhone, setErrorPhone] = useState('');
+
+    const validateCity = () => {
+      if (city.trim() === '') {
+        setError('La città è obbligatoria');
+      } else if (city.trim().length < 2) {
+        setError('La città deve contenere almeno 2 caratteri');
+      } else {
+        setError('');
+      }
+    };
+
+    const validateStreet = () => {
+      if (street.trim() === '') {
+        setErrorStreet("L'indirizzo è obbligatorio");
+      } else if (street.trim().length < 2) {
+        setErrorStreet("L'indirizzo deve contenere almeno 2 caratteri");
+      } else {
+        setErrorStreet('');
+      }
+    };
+
+    const validatePhone = () => {
+      if (phone.trim() === '') {
+        setErrorPhone('Il numero di telefono è obbligatorio');
+      } else if (!/^(\+39)?\s*\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}$/.test(phone.trim())) {
+        setErrorPhone('Numero di telefono non valido');
+      }else {
+        setErrorPhone('');
+      }
+
+    }
 
     return (
       <>
