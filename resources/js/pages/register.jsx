@@ -107,3 +107,9 @@ const TextArea = ({label, name, value, onChange, placeholder = ''}) => {
   </>)
 
 }
+
+const Error = ({error}) =>{
+  return (
+    <p className='text-sm text-red-600 space-y-1'>{error}</p>
+  )
+}
