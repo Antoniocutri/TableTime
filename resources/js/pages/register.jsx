@@ -69,7 +69,7 @@ export default function RoleSelect() {
     );
   }
 
-  const TextInput = ({ label, name, value, onChange, placeholder = "", type = "text", width = 'w-50' }) => {
+  const TextInput = ({ label, name, value, onChange, onBlur, error, placeholder = "", type = "text", width = 'w-50' }) => {
   return (
     <>
       <label htmlFor={name} className="block font-medium text-sm text-gray-700">
@@ -81,7 +81,9 @@ export default function RoleSelect() {
         id={name}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
+        error={error}
         className={"border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm " + width}
       />
     </>
