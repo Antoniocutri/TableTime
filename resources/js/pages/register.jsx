@@ -33,8 +33,14 @@ export default function RoleSelect() {
               label='Inserire la città' 
               name='city'
               value={city}
-              onChange={(e) => setCity(e.target.value)}>
-              </TextInput>
+              onChange={(e) => {
+                setCity(e.target.value)
+                if (error) validateCity();
+              }}
+              onBlur={validateCity}
+              error={error}
+              />
+              {error && <Error error={error}/>}
         </div>
 
         <div className="mt-4">
@@ -42,8 +48,13 @@ export default function RoleSelect() {
               label="Inserire l'indirizzo" 
               name='street'
               value={street}
-              onChange={(e) => setStreet(e.target.value)}>
-              </TextInput>
+              onChange={(e) => {
+                setStreet(e.target.value)
+                if (errorStreet) validateStreet();
+              }}
+              onBlur={validateStreet}
+              error={errorStreet}/>
+              {errorStreet && <Error error={errorStreet}/>}
         </div>
 
         <div className="mt-4">
@@ -52,8 +63,13 @@ export default function RoleSelect() {
               name='phone'
               type='tel'
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}>
-              </TextInput>
+              onChange={(e) => {
+                setPhone(e.target.value)
+                if (errorPhone) validatePhone();
+              }}
+              onBlur={validatePhone}
+              error={errorPhone}/>
+              {errorPhone && <Error error={errorPhone}/>}
         </div>
 
         <div className="mt-4">
