@@ -19,8 +19,8 @@
         </div>
         <!-- Role select -->
         <div class="mt-4">
-            <x-input-label for="role_select" value="Selezionare il ruolo" />
-            <div id="role_select" name='role_select' class="mt-1 w-100" required></div>
+            <x-input-label for="role" value="Selezionare il ruolo" />
+            <div id="role" name='role' class="mt-1 w-100" required></div>
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -70,7 +70,7 @@
     form.addEventListener("focusout", function (e) {
         const target = e.target;
 
-        if (target.name != 'role_select'){
+        if (target.name != 'role'){
             target.classList.remove("is-invalid");
             target.classList.add("is-valid");
         }

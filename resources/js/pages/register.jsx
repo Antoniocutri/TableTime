@@ -10,7 +10,7 @@ export default function RoleSelect() {
 
   return (
     <>
-      <select name="role_select" className="form-select w-50" value={role} onChange={handleChange}>
+      <select name="role" className="form-select w-50" value={role} onChange={handleChange}>
         <option value="" hidden>Inserisci il Ruolo</option>
         <option value="customer">Cliente</option>
         <option value="owner">Ristoratore</option>

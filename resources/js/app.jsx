@@ -18,9 +18,9 @@ function App() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById('role_select');
+  const container = document.getElementById('role');
   if (container) {
-    ReactDOM.createRoot(document.getElementById('role_select')).render(
+    ReactDOM.createRoot(container).render(
       <React.StrictMode>
         <App />
       </React.StrictMode>
