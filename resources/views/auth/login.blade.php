@@ -9,7 +9,8 @@
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" id="email_error" class="mt-2" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <div id="email_error" class="text-sm text-red-600 space-y-1"></div>
         </div>
 
         <!-- Password -->
@@ -21,7 +22,9 @@
                             name="password"
                             autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" id="password_error" class="mt-2" />
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <div id="password_error" class="text-sm text-red-600 space-y-1"></div>
+
         </div>
 
         <!-- Remember Me -->
@@ -51,13 +54,37 @@
     </form>
 </x-guest-layout>
 <script>
-    let button = document.querySelector("#login_button");
-    let hasError = false
-    button.addEventListener("click", function (e) {
+
+    const form = document.querySelector("#login_form");
+
+    form.addEventListener("focusout", function (e) {
+        const target = e.target;
+        target.classList.remove("is-invalid");
+        target.classList.add("is-valid");
+
+        console.log(target.name)
+        const errorElement = document.querySelector(`#${target.id}_error`);
+        errorElement.textContent = ""
+
+        if (target.name =='email'){
+            if (!target.value) {
+                errorElement.textContent =  "Inserire l'email"
+                target.classList.add("is-invalid");
+            }
+        } else if (target.name =='password'){
+            if (!target.value) {
+                errorElement.textContent = "Inserire la password"
+                target.classList.add("is-invalid");
+            }
+        }
+    });
+
+    form.addEventListener("submit", function (e) {
+
+        let hasError = false
 
         let email = document.querySelector("#email")
         let password = document.querySelector("#password")
-        hasError = false 
 
         if (!email.value) {
             document.querySelector("#email_error").textContent = "Inserire l'email"
@@ -70,10 +97,7 @@
             password.classList.add("is-invalid");
             hasError = true
         }
-        });
 
-    const form = document.querySelector("#login_form");
-    form.addEventListener("submit", function (e) {
         if (hasError) {
             e.preventDefault();
         }
