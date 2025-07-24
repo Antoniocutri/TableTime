@@ -17,10 +17,15 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('role_select')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById('role_select');
+  if (container) {
+    ReactDOM.createRoot(document.getElementById('role_select')).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+  }
+});
 
 
