@@ -32,8 +32,10 @@ export default function RoleSelect() {
     const validateCity = () => {
       if (city.trim() === '') {
         setError('La città è obbligatoria');
+        window.reactValidation.hasError = true;
       } else if (city.trim().length < 2) {
         setError('La città deve contenere almeno 2 caratteri');
+        window.reactValidation.hasError = true;
       } else {
         setError('');
       }
@@ -42,8 +44,10 @@ export default function RoleSelect() {
     const validateStreet = () => {
       if (street.trim() === '') {
         setErrorStreet("L'indirizzo è obbligatorio");
+        window.reactValidation.hasError = true;
       } else if (street.trim().length < 2) {
         setErrorStreet("L'indirizzo deve contenere almeno 2 caratteri");
+        window.reactValidation.hasError = true;
       } else {
         setErrorStreet('');
       }
@@ -52,8 +56,10 @@ export default function RoleSelect() {
     const validatePhone = () => {
       if (phone.trim() === '') {
         setErrorPhone('Il numero di telefono è obbligatorio');
+        window.reactValidation.hasError = true;
       } else if (!/^(\+39)?\s*\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}$/.test(phone.trim())) {
         setErrorPhone('Numero di telefono non valido');
+        window.reactValidation.hasError = true;
       }else {
         setErrorPhone('');
       }
