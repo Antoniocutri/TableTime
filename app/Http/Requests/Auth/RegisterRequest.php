@@ -27,6 +27,11 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'role' => ['required', 'in:customer,owner,admin'],
+            'restaurant_name' => ['required_if:role,owner', 'string', 'max:255'],
+            'description' => ['string', 'max:511'],
+            'city' => ['required_if:role,owner', 'string', 'max:255'],
+            'street' => ['required_if:role,owner', 'string', 'max:255'],
+            'phone' => ['required_if:role,owner', 'regex:/^(\+39)?\s*\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}$/'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }
