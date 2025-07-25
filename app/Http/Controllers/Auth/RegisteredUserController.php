@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class RegisteredUserController extends Controller
 {
@@ -30,14 +32,35 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisterRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
+        $request->validated();
 
-        $user = User::create([
-            'name' => $validated->name,
-            'email' => $validated->email,
-            'role' => $validated->role,
-            'password' => Hash::make($validated->password),
-        ]);
+        try {
+            DB::beginTransaction();
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+                'password' => Hash::make($request->password),
+            ]);
+
+            if ($request->role == 'owner'){
+                Restaurant::create([
+                    'name' => $request->restaurant_name,
+                    'city' => $request->city,
+                    'street' => $request->street,
+                    'phone' => $request->phone,
+                    'description' => $request->restaurant_description,
+                    'user_id' => $user->id
+                ]);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+        }
 
         event(new Registered($user));
 
