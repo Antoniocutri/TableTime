@@ -23,7 +23,6 @@ class RestaurantFactory extends Factory
             'street' => fake()->streetName(),
             'city' => fake()->city(),
             'phone' => fake()->phoneNumber(),
-            'email' => fake()->unique()->safeEmail(),
             'user_id' =>  User::where('role', 'owner')->inRandomOrder()->first()->id,
         ];
     }
