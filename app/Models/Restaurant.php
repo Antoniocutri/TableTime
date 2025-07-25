@@ -18,7 +18,6 @@ class Restaurant extends Model
         'street',
         'city',
         'phone',
-        'email',
         'user_id',
     ];
 
