@@ -21,7 +21,7 @@
         <div class="mt-4">
             <x-input-label for="role" value="Selezionare il ruolo" />
             <div id="role" name='role' class="mt-1 w-100" required></div>
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>
 
         <!-- Password -->
