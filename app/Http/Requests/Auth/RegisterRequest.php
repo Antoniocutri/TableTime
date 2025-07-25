@@ -35,4 +35,17 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'role.in' => __('The role must be customer or owner'),
+            'phone.regex' => __("Insert a valid phone numer")
+        ];
+    }
 }
