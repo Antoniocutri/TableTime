@@ -21,13 +21,28 @@ export default function RoleSelect() {
 }
 
   function Register(){
+    let [restaurant_name, setRestaurant_name] = useState('');
     let [city, setCity] = useState('');
     let [street, setStreet] = useState('');
     let [phone, setPhone] = useState('');
     let [description, setDescription] = useState('');
+
+    const [errorName, setErrorName] = useState('');
     const [error, setError] = useState('');
     const [errorStreet, setErrorStreet] = useState('');
     const [errorPhone, setErrorPhone] = useState('');
+
+    const validateRestaurantName = () => {
+      if (restaurant_name.trim() === '') {
+        setErrorName('Il nome è obbligatorio');
+        window.reactValidation.hasError = true;
+      } else if (restaurant_name.trim().length < 2) {
+        setErrorName('Il nome deve contenere almeno 2 caratteri');
+        window.reactValidation.hasError = true;
+      } else {
+        setErrorName('');
+      }
+    };
 
     const validateCity = () => {
       if (city.trim() === '') {
@@ -68,6 +83,21 @@ export default function RoleSelect() {
 
     return (
       <>
+      <div className="mt-4">
+            <TextInput 
+              label='Inserire il nome del ristorante' 
+              name='restaurant_name'
+              value={restaurant_name}
+              onChange={(e) => {
+                setRestaurant_name(e.target.value)
+                if (errorName) validateRestaurantName();
+              }}
+              onBlur={validateRestaurantName}
+              error={errorName}
+              />
+              {errorName && <Error error={errorName}/>}
+        </div>
+
         <div className="mt-4">
             <TextInput 
               label='Inserire la città' 
