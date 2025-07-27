@@ -2,6 +2,12 @@
     <form method="POST" id='register_form' action="{{ route('register') }}">
         @csrf
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
