@@ -7,18 +7,28 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+            <!-- Adding opening hour -->
+            @if ($user->role == 'owner')
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div id='addSchedules' class="max-w-xl">
+                        
+                    </div>
+                </div>
+            @endif
+            <!-- Profile update -->
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.update-profile-information-form')
                 </div>
             </div>
-
+            <!-- Password update -->
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.update-password-form')
                 </div>
             </div>
-
+            <!-- Delete account -->
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
