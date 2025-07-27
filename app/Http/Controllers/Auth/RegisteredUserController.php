@@ -56,16 +56,20 @@ class RegisteredUserController extends Controller
             }
 
             DB::commit();
+
+            event(new Registered($user));
+
+            Auth::login($user);
+
+            return redirect(route('dashboard', absolute: false));
+
         } catch (\Exception $e) {
             DB::rollBack();
 
-            throw $e;
+            return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Si è verificato un errore durante la registrazione.');
         }
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
     }
 }
