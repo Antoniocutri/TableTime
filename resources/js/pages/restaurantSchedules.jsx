@@ -1,12 +1,67 @@
 import React, { useEffect,useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
 export default function AddRestaurantSchedules() {
+    const { t } = useTranslation();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        getValues
+    } = useForm({
+        mode: 'onBlur'
+        });
+
+    const onSubmit = (data) => {
+        console.log('Dati inviati:', data);
+    };
     
     return (
         <>
             <Header/>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                
+                {/* Lunch time */}
+                <CheckBox label={t("Check if is closed for lunch")} name='isLunch_closed'></CheckBox>
+
+                <InputTime 
+                    label={t('Insert opening lunch hour')}
+                    name='lunch_opening'
+                    register={register}
+                    errors={errors}/>
+                <InputTime
+                    label={t("Insert closing lunch hour")}
+                    name="lunch_closing"
+                    register={register}
+                    errors={errors}
+                    validateFn={(value) => {
+                        const opening = getValues('lunch_opening');
+                        return value > opening || t("Closing must be later than opening");
+                    }}
+                />
+
+                {/* Dinner time */}
+                <CheckBox label={t("Check if is closed for dinner")} name='isDinner_closed'></CheckBox>
+                <InputTime 
+                    label={t("Insert opening dinner hour")}
+                    name='dinner_opening'
+                    register={register}
+                    errors={errors}/>
+                <InputTime
+                    label={t("Insert closing dinner hour")}
+                    name="dinner_closing"
+                    register={register}
+                    errors={errors}
+                    validateFn={(value) => {
+                        const opening = getValues('dinner_opening');
+                        return value > opening || t("Closing must be later than opening");
+                    }}
+                />
+                <button type="submit" className='btn btn-primary'>{t("Save")}</button>
+            </form>
         </>
     )
 }
