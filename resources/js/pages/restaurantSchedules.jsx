@@ -23,6 +23,11 @@ export default function AddRestaurantSchedules() {
         <>
             <Header/>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <SelectDay
+                    label={t("Select the day of the week")}
+                    name='week_day'
+                    register={register}
+                    errors={errors}/>
                 
                 {/* Lunch time */}
                 <CheckBox label={t("Check if is closed for lunch")} name='isLunch_closed'></CheckBox>
@@ -130,6 +135,30 @@ const Label = ({label, name}) => {
             <label htmlFor={name} className="block font-medium text-sm text-gray-700">
                 {label}
             </label>
+        </>
+    )
+}
+
+const SelectDay = ({label, name, register, errors}) => {
+    return (
+        <>
+            <Label 
+                label={label}
+                name={name}/>
+            <select className="form-select w-50"
+                    {...register(name, {
+                    required: "Inserire il giorno",
+                })}>
+                <option value="" hidden>Seleziona il giorno</option>
+                <option value="0">Lunedì</option>
+                <option value="1">Martedì</option>
+                <option value="2">Mercoledì</option>
+                <option value="3">Giovedì</option>
+                <option value="4">Venerdì</option>
+                <option value="5">Sabato</option>
+                <option value="6">Domenica</option>
+            </select>
+            {errors[name] && <Error error={errors[name].message}/>}
         </>
     )
 }
