@@ -27,60 +27,78 @@ export default function AddRestaurantSchedules() {
         <>
             <Header/>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <SelectDay
-                    label={t("Select the day of the week")}
-                    name='week_day'
-                    register={register}
-                    errors={errors}/>
-                
-                {/* Lunch time */}
-                <CheckBox 
-                    label={t("Check if is closed for lunch")} 
-                    name='isLunch_closed'
-                    register={register}/>
+                <div className="container p-0">
+                    <div className="row gx-3">
+                        <div className="col-6">{/*colonna di sinistra */}
+                            <SelectDay
+                                label={t("Select the day of the week")}
+                                name='week_day'
+                                register={register}
+                                errors={errors}/>
+                            
+                            <CheckBox 
+                                label={t("Check if is closed for lunch")} 
+                                name='isLunch_closed'
+                                register={register}/>
+                        </div>
+                    </div>
+                    <div className="row gx-3">
+                        <div className='col-6'>
+                            <InputTime 
+                                label={t('Insert opening lunch hour')}
+                                name='lunch_opening'
+                                register={register}
+                                disabled={isLunchClosed}
+                                errors={errors}/>
 
-                <InputTime 
-                    label={t('Insert opening lunch hour')}
-                    name='lunch_opening'
-                    register={register}
-                    disabled={isLunchClosed}
-                    errors={errors}/>
-                <InputTime
-                    label={t("Insert closing lunch hour")}
-                    name="lunch_closing"
-                    register={register}
-                    disabled={isLunchClosed}
-                    errors={errors}
-                    validateFn={(value) => {
-                        const opening = getValues('lunch_opening');
-                        return value > opening || t("Closing must be later than opening");
-                    }}
-                />
+                            <CheckBox 
+                                label={t("Check if is closed for dinner")} 
+                                name='isDinner_closed'
+                                register={register}
+                            />
+                        </div>
+                        <div className='col-6'>
+                            <InputTime
+                                label={t("Insert closing lunch hour")}
+                                name="lunch_closing"
+                                register={register}
+                                disabled={isLunchClosed}
+                                errors={errors}
+                                validateFn={(value) => {
+                                    const opening = getValues('lunch_opening');
+                                    return value > opening || t("Closing must be later than opening");
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className='row gx-3'>
+                        <div className='col-6'>
+                            {/*opening lunch input */}
+                            <InputTime 
+                                label={t("Insert opening dinner hour")}
+                                name='dinner_opening'
+                                register={register}
+                                disabled={isDinnerClosed}
+                                errors={errors}/>
+                        </div>
+                        <div className='col-6'>
+                            {/*closing lunch input */}
+                            <InputTime
+                                label={t("Insert closing dinner hour")}
+                                name="dinner_closing"
+                                register={register}
+                                disabled={isDinnerClosed}
+                                errors={errors}
+                                validateFn={(value) => {
+                                    const opening = getValues('dinner_opening');
+                                    return value > opening || t("Closing must be later than opening");
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-                {/* Dinner time */}
-                <CheckBox 
-                    label={t("Check if is closed for dinner")} 
-                    name='isDinner_closed'
-                    register={register}
-                    />
-                <InputTime 
-                    label={t("Insert opening dinner hour")}
-                    name='dinner_opening'
-                    register={register}
-                    disabled={isDinnerClosed}
-                    errors={errors}/>
-                <InputTime
-                    label={t("Insert closing dinner hour")}
-                    name="dinner_closing"
-                    register={register}
-                    disabled={isDinnerClosed}
-                    errors={errors}
-                    validateFn={(value) => {
-                        const opening = getValues('dinner_opening');
-                        return value > opening || t("Closing must be later than opening");
-                    }}
-                />
-                <button type="submit" className='btn btn-primary'>{t("Save")}</button>
+                <button type="submit" className='btn btn-primary mt-3'>{t("Save")}</button>
             </form>
         </>
     )
@@ -109,7 +127,7 @@ const InputTime = ({ label, name, register, errors, validateFn, disabled = false
       const input = document.querySelector(`input[name="${name}"]`);
       input ? input.value = '' : null
     }
-  }, [disabled, name]);
+  });
 
     return (
         <>
@@ -134,7 +152,7 @@ const CheckBox = ({label, name, register}) => {
 
     return(
         <>
-            <div className="form-check">
+            <div className="form-check mt-3 mb-0">
                 <label className="form-check-label font-medium text-sm text-gray-700" htmlFor={name}>
                     {label}
                 </label>
@@ -157,7 +175,7 @@ const Error = ({error}) =>{
 const Label = ({label, name}) => {
     return (
         <>
-            <label htmlFor={name} className="block font-medium text-sm text-gray-700">
+            <label htmlFor={name} className="block font-medium text-sm text-gray-700 mt-1">
                 {label}
             </label>
         </>
@@ -170,7 +188,7 @@ const SelectDay = ({label, name, register, errors}) => {
             <Label 
                 label={label}
                 name={name}/>
-            <select className="form-select w-50"
+            <select className="form-select w-100 mt-1"
                     {...register(name, {
                     required: "Inserire il giorno",
                 })}>
