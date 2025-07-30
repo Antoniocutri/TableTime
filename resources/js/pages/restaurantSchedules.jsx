@@ -86,7 +86,15 @@ function Header(){
     )
 }
 
-const InputTime = ({ label, name, register, errors, validateFn }) => {
+const InputTime = ({ label, name, register, errors, validateFn, disabled = false }) => {
+
+    // clear the input when it becomes disabled
+    useEffect(() => {
+    if (disabled) {
+      const input = document.querySelector(`input[name="${name}"]`);
+      input ? input.value = '' : null
+    }
+  }, [disabled, name]);
 
     return (
         <>
@@ -96,6 +104,7 @@ const InputTime = ({ label, name, register, errors, validateFn }) => {
                     required: "Inserire l'orario",
                     validate: validateFn
                 })}
+                disabled={disabled}
                 type='time'
                 name={name}
                 id={name}
