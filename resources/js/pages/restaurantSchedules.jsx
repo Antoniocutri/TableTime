@@ -115,7 +115,7 @@ const InputTime = ({ label, name, register, errors, validateFn, disabled = false
     )
 }
 
-const CheckBox = ({label, name}) => {
+const CheckBox = ({label, name, register}) => {
 
     return(
         <>
@@ -126,6 +126,7 @@ const CheckBox = ({label, name}) => {
                 <input 
                     type='checkbox' 
                     name={name}
+                    {...register(name)}
                     className="form-check-input"/>
             </div>
         </>
