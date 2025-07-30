@@ -32,10 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('addSchedules');
+  const props = JSON.parse(container.dataset.props);
   if (container) {
     ReactDOM.createRoot(container).render(
       <React.StrictMode>
-        <AddRestaurantSchedules />
+        <AddRestaurantSchedules {...props} />
       </React.StrictMode>
     );
   }

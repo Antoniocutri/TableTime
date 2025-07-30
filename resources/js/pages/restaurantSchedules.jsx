@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
-export default function AddRestaurantSchedules() {
+export default function AddRestaurantSchedules({restaurant_id}) {
     const { t } = useTranslation();
     const {
         register,
