@@ -9,6 +9,7 @@ export default function AddRestaurantSchedules() {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors },
         getValues
     } = useForm({
@@ -19,6 +20,9 @@ export default function AddRestaurantSchedules() {
         console.log('Dati inviati:', data);
     };
     
+    const isLunchClosed = watch("isLunch_closed", false);
+    const isDinnerClosed = watch("isDinner_closed", false);
+
     return (
         <>
             <Header/>
@@ -30,17 +34,22 @@ export default function AddRestaurantSchedules() {
                     errors={errors}/>
                 
                 {/* Lunch time */}
-                <CheckBox label={t("Check if is closed for lunch")} name='isLunch_closed'></CheckBox>
+                <CheckBox 
+                    label={t("Check if is closed for lunch")} 
+                    name='isLunch_closed'
+                    register={register}/>
 
                 <InputTime 
                     label={t('Insert opening lunch hour')}
                     name='lunch_opening'
                     register={register}
+                    disabled={isLunchClosed}
                     errors={errors}/>
                 <InputTime
                     label={t("Insert closing lunch hour")}
                     name="lunch_closing"
                     register={register}
+                    disabled={isLunchClosed}
                     errors={errors}
                     validateFn={(value) => {
                         const opening = getValues('lunch_opening');
@@ -49,16 +58,22 @@ export default function AddRestaurantSchedules() {
                 />
 
                 {/* Dinner time */}
-                <CheckBox label={t("Check if is closed for dinner")} name='isDinner_closed'></CheckBox>
+                <CheckBox 
+                    label={t("Check if is closed for dinner")} 
+                    name='isDinner_closed'
+                    register={register}
+                    />
                 <InputTime 
                     label={t("Insert opening dinner hour")}
                     name='dinner_opening'
                     register={register}
+                    disabled={isDinnerClosed}
                     errors={errors}/>
                 <InputTime
                     label={t("Insert closing dinner hour")}
                     name="dinner_closing"
                     register={register}
+                    disabled={isDinnerClosed}
                     errors={errors}
                     validateFn={(value) => {
                         const opening = getValues('dinner_opening');
