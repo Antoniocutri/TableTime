@@ -65,8 +65,10 @@ export default function AddRestaurantSchedules() {
                                 disabled={isLunchClosed}
                                 errors={errors}
                                 validateFn={(value) => {
-                                    const opening = getValues('lunch_opening');
-                                    return value > opening || t("Closing must be later than opening");
+                                    if(!isLunchClosed){
+                                        const opening = getValues('lunch_opening');
+                                        return value > opening || t("Closing must be later than opening");
+                                    }
                                 }}
                             />
                         </div>
@@ -90,8 +92,10 @@ export default function AddRestaurantSchedules() {
                                 disabled={isDinnerClosed}
                                 errors={errors}
                                 validateFn={(value) => {
-                                    const opening = getValues('dinner_opening');
-                                    return value > opening || t("Closing must be later than opening");
+                                    if (!isDinnerClosed){
+                                        const opening = getValues('dinner_opening');
+                                        return value > opening || t("Closing must be later than opening");
+                                    }
                                 }}
                             />
                         </div>
@@ -134,7 +138,7 @@ const InputTime = ({ label, name, register, errors, validateFn, disabled = false
             <Label label={label} name={name}/>
             <input
                 {...register(name, {
-                    required: "Inserire l'orario",
+                    required: !disabled && "Inserire l'orario",
                     validate: validateFn
                 })}
                 disabled={disabled}
