@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Rules\TimeAfter;
+use Illuminate\Foundation\Http\FormRequest;
+
+class RestaurantScheduleRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            "week_day" => ['required','integer','min:0','max:6'],
+            "isLunch_closed" => ['required','boolean'],
+            "lunch_opening" => ['required_if:isLunch_closed,false','date_format:H:i'],
+            "lunch_closing" => ['required_if:isLunch_closed,false','date_format:H:i', new TimeAfter('lunch_opening','isLunch_closed')],
+            "isDinner_closed" => ['required','boolean'],
+            "dinner_opening" => ['required_if:isDinner_closed,false','date_format:H:i'],
+            "dinner_closing" => ['required_if:isDinner_closed,false','date_format:H:i',new TimeAfter('dinner_opening','isDinner_closed')]
+        ];
+    }
+}
