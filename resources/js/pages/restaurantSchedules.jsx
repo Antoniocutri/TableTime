@@ -1,6 +1,7 @@
 import React, { useEffect,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
@@ -16,8 +17,18 @@ export default function AddRestaurantSchedules({restaurant_id}) {
         mode: 'onBlur'
         });
 
-    const onSubmit = (data) => {
-        console.log('Dati inviati:', data);
+    const onSubmit = async (data) => {
+        
+        try {
+            console.log(data)
+            const response = await axios.post('/restaurant-schedule', data);
+
+            console.log('Risposta dal server ', response.data);
+            
+        } catch (error) {
+            console.error('Errore durante l\'invio:', error);
+            
+        }
     };
     
     const isLunchClosed = watch("isLunch_closed", false);
