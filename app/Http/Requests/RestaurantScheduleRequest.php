@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use App\Rules\TimeAfter;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class RestaurantScheduleRequest extends FormRequest
 {
@@ -23,7 +25,9 @@ class RestaurantScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "week_day" => ['required','integer','min:0','max:6'],
+            "week_day" => ['required','integer','min:0','max:6',
+                            Rule::unique('restaurant_schedules', 'week_day')
+                                ->where('restaurant_id', $this->user()->restaurants[0]->id)],
             "isLunch_closed" => ['required','boolean'],
             "lunch_opening" => ['nullable','required_if:isLunch_closed,false','date_format:H:i'],
             "lunch_closing" => ['nullable','required_if:isLunch_closed,false','date_format:H:i', new TimeAfter('lunch_opening')],
