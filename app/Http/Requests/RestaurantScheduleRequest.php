@@ -25,11 +25,11 @@ class RestaurantScheduleRequest extends FormRequest
         return [
             "week_day" => ['required','integer','min:0','max:6'],
             "isLunch_closed" => ['required','boolean'],
-            "lunch_opening" => ['required_if:isLunch_closed,false','date_format:H:i'],
-            "lunch_closing" => ['required_if:isLunch_closed,false','date_format:H:i', new TimeAfter('lunch_opening','isLunch_closed')],
+            "lunch_opening" => ['nullable','required_if:isLunch_closed,false','date_format:H:i'],
+            "lunch_closing" => ['nullable','required_if:isLunch_closed,false','date_format:H:i', new TimeAfter('lunch_opening')],
             "isDinner_closed" => ['required','boolean'],
-            "dinner_opening" => ['required_if:isDinner_closed,false','date_format:H:i'],
-            "dinner_closing" => ['required_if:isDinner_closed,false','date_format:H:i',new TimeAfter('dinner_opening','isDinner_closed')]
+            "dinner_opening" => ['nullable','required_if:isDinner_closed,false','date_format:H:i'],
+            "dinner_closing" => ['nullable','required_if:isDinner_closed,false','date_format:H:i',new TimeAfter('dinner_opening')]
         ];
     }
 }
