@@ -23,6 +23,19 @@
                     </div>
                 @endif
             @endif
+
+            <!-- Update opening hour 
+                Show form to update opening hour only if user is owner and if user has added shedule for at least one day-->
+            @if ($user->role == 'owner')
+                @if($user->restaurants()->first()->restaurant_schedules()->count() > 0)
+                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <div id='update_schedules' class="max-w-xl">
+                            
+                        </div>
+                    </div>
+                @endif
+            @endif
+
             <!-- Profile update -->
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
