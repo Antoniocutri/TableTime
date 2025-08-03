@@ -15,6 +15,7 @@ export default function AddRestaurantSchedules() {
         handleSubmit,
         watch,
         formState: { errors },
+        setError,
         getValues,
         reset
     } = useForm({
@@ -35,7 +36,15 @@ export default function AddRestaurantSchedules() {
             }
             
         } catch (error) {
-            console.error('Errore durante l\'invio:', error);
+            if (error.response?.status === 422) {
+                const serverErrors = error.response.data.errors;
+                Object.keys(serverErrors).forEach((field) => {
+                    setError(field, {
+                        type: 'server',
+                        message: serverErrors[field][0]
+                    });
+                });
+            }
             
         }
     };
