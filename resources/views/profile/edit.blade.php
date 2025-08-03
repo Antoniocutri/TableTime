@@ -12,13 +12,16 @@
             $restaurant_id = [
                 'restaurant_id' => $user->restaurants[0]->id]
         @endphp
-            <!-- Adding opening hour -->
+            <!-- Adding opening hour
+                Show form to add opening hour only if user is owner and if user has not added shedule for all days -->
             @if ($user->role == 'owner')
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div id='addSchedules' data-props='@json($restaurant_id)' class="max-w-xl">
-                        
+                @if($user->restaurants()->first()->restaurant_schedules()->count() < 7)
+                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <div id='addSchedules' data-props='@json($restaurant_id)' class="max-w-xl">
+                            
+                        </div>
                     </div>
-                </div>
+                @endif
             @endif
             <!-- Profile update -->
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
