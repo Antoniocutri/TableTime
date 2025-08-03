@@ -5,14 +5,18 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
-export default function AddRestaurantSchedules({restaurant_id}) {
+export default function AddRestaurantSchedules() {
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const { t } = useTranslation();
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
-        getValues
+        getValues,
+        reset
     } = useForm({
         mode: 'onBlur'
         });
@@ -23,7 +27,12 @@ export default function AddRestaurantSchedules({restaurant_id}) {
             console.log(data)
             const response = await axios.post('/restaurant-schedule', data);
 
-            console.log('Risposta dal server ', response.data);
+            if (response.data.success) {
+                setSuccessMessage(response.data.message);
+                reset();
+            } else {
+                setErrorMessage(response.data.message)
+            }
             
         } catch (error) {
             console.error('Errore durante l\'invio:', error);
@@ -37,10 +46,24 @@ export default function AddRestaurantSchedules({restaurant_id}) {
     return (
         <>
             <Header/>
+            {successMessage && 
+                <div className="alert alert-success alert-dismissible fade show mt-2" role="alert">
+                    {successMessage}
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            {errorMessage && 
+                <div className="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                    {errorMessage}
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="container p-0">
                     <div className="row gx-3">
-                        <div className="col-6">{/*colonna di sinistra */}
+                        <div className="col-6">
                             <SelectDay
                                 label={t("Select the day of the week")}
                                 name='week_day'
@@ -190,7 +213,7 @@ const Error = ({error}) =>{
 const Label = ({label, name}) => {
     return (
         <>
-            <label htmlFor={name} className="block font-medium text-sm text-gray-700 mt-1">
+            <label htmlFor={name} className="block font-medium text-sm text-gray-700 mt-2">
                 {label}
             </label>
         </>
