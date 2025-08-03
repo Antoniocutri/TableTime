@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class restaurant_schedule extends Model
+class Restaurant_schedule extends Model
 {
     /** @use HasFactory<\Database\Factories\RestaurantScheduleFactory> */
     use HasFactory;
