@@ -36,4 +36,16 @@ class RestaurantScheduleRequest extends FormRequest
             "dinner_closing" => ['nullable','required_if:isDinner_closed,false','date_format:H:i',new TimeAfter('dinner_opening')]
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
+    {
+        return [
+            'week_day.unique' => __("The schedule for this day has already been added"),
+        ];
+    }
 }
