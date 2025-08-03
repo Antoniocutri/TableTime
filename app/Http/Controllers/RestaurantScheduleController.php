@@ -33,7 +33,8 @@ class RestaurantScheduleController extends Controller
     {
         $request->validated();
 
-        Restaurant_schedule::create([
+        try {
+            Restaurant_schedule::create([
             'restaurant_id' => $request->user()->restaurants[0]->id,
             'week_day' => $request->week_day,
             'is_lunch_closed' => $request->isLunch_closed,
@@ -44,7 +45,17 @@ class RestaurantScheduleController extends Controller
             'dinner_closing' => $request->dinner_closing,
         ]);
 
-        return Redirect::route('profile.edit')->with('status', 'schedule-stored');
+        return response()->json([
+            'success' => true,
+            'message' => __("Schedule added successfully"),
+        ]);
+
+        } catch (\Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => __("Unexpected error. Please try again later."),
+            ]);
+        }
     }
 
     /**
