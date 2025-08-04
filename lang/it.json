@@ -88,6 +88,8 @@
     "Insert a valid phone numer":"Inserire un numero di telefono corretto",
     "Add restaurant schedule": "Aggiungi orari d'apertura",
     "Add restaurant schedule for each day of the week":"Aggiungi orari d'apertura per ogni giorno della settimana ",
+    "Update restaurant schedule": "Modifica orari d'apertura",
+    "Update restaurant schedule for each day of the week":"Modifica orari d'apertura per ogni giorno della settimana ",
     "Insert opening lunch hour":"Inserisci l'orario d'apertura a pranzo",
     "Insert closing lunch hour":"Inserisci l'orario di chiusura a pranzo",
     "Closing must be later than opening":"L'orario di chiusura deve essere dopo quello di apertura",
