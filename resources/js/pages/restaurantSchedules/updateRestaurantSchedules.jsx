@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
 
-export default function UpdateRestaurantSchedules() {
+export default function UpdateRestaurantSchedules({restaurant_schedule }) {
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -50,8 +50,8 @@ export default function UpdateRestaurantSchedules() {
         }
     };
 
-    const isLunchClosed = watch("isLunch_closed", false);
-    const isDinnerClosed = watch("isDinner_closed", false);
+    const isLunchClosed = watch("isLunch_closed_update", false);
+    const isDinnerClosed = watch("isDinner_closed_update", false);
 
     return (
         <>

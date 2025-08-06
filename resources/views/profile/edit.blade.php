@@ -24,12 +24,17 @@
                 @endif
             @endif
 
+             <!-- get a collection of all restaurant schedule of the restaurant of the user -->
+            @php
+                $restaurant_schedule = [
+                    'restaurant_schedule' => $user->restaurants->first()->restaurant_schedules()->get()];
+            @endphp
             <!-- Update opening hour 
                 Show form to update opening hour only if user is owner and if user has added shedule for at least one day-->
             @if ($user->role == 'owner')
                 @if($user->restaurants()->first()->restaurant_schedules()->count() > 0)
                     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <div id='update_schedules' class="max-w-xl">
+                        <div id='update_schedules' data-props='@json($restaurant_schedule)' class="max-w-xl">
                             
                         </div>
                     </div>

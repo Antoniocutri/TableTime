@@ -44,9 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const update_schedules = document.querySelector('#update_schedules');
   if (update_schedules) {
+    const props = JSON.parse(update_schedules.getAttribute('data-props'))
     ReactDOM.createRoot(update_schedules).render(
       <React.StrictMode>
-        <UpdateRestaurantSchedules />
+        <UpdateRestaurantSchedules {...props} />
       </React.StrictMode>
     );
   }
