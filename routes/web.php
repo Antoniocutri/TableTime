@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/restaurant-schedule', [RestaurantScheduleController::class, 'store'])->name('restaurant-schedule.store');
-    Route::put('/restaurant-schedule', [RestaurantScheduleController::class, 'update'])->name('restaurant-schedule.update');
+    Route::put('/restaurant-schedule/{id}', [RestaurantScheduleController::class, 'update'])->name('restaurant-schedule.update');
 });
 
 require __DIR__.'/auth.php';
