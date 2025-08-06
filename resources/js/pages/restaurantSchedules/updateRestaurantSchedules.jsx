@@ -78,7 +78,8 @@ export default function UpdateRestaurantSchedules({restaurant_schedule }) {
                                 label={t("Select the day of the week")}
                                 name='week_day_update'
                                 register={register}
-                                errors={errors}/>
+                                errors={errors}
+                                schedules={restaurant_schedule}/>
                             
                             <CheckBox 
                                 label={t("Check if is closed for lunch")} 
@@ -230,7 +231,16 @@ const Label = ({label, name}) => {
     )
 }
 
-const SelectDay = ({label, name, register, errors}) => {
+const SelectDay = ({label, name, register, errors, schedules}) => {
+    const week_days = {
+            0: 'Lunedì',
+            1: 'Martedì',
+            2: 'Mercoledì',
+            3: 'Giovedì',
+            4: 'Venerdì',
+            5: 'Sabato',
+            6: 'Domenica',
+        };
     return (
         <>
             <Label 
@@ -241,13 +251,11 @@ const SelectDay = ({label, name, register, errors}) => {
                     required: "Inserire il giorno",
                 })}>
                 <option value="" hidden>Seleziona il giorno</option>
-                <option value="0">Lunedì</option>
-                <option value="1">Martedì</option>
-                <option value="2">Mercoledì</option>
-                <option value="3">Giovedì</option>
-                <option value="4">Venerdì</option>
-                <option value="5">Sabato</option>
-                <option value="6">Domenica</option>
+                {schedules.map(schedule => (
+                    <option key={schedule.id} value={schedule.week_day}>
+                        {week_days[schedule.week_day]}
+                    </option>
+                ))}
             </select>
             {errors[name] && <Error error={errors[name].message}/>}
         </>
