@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RestaurantScheduleRequest;
+use App\Http\Requests\UpdateRestaurantScheduleRequest;
 use App\Models\Restaurant_schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -77,7 +78,7 @@ class RestaurantScheduleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRestaurantScheduleRequest $request, string $id)
     {
         //
     }
