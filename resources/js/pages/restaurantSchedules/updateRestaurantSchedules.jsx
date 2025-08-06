@@ -17,6 +17,7 @@ export default function UpdateRestaurantSchedules({restaurant_schedule }) {
         watch,
         formState: { errors },
         setError,
+        setValue,
         getValues,
         reset
     } = useForm({
@@ -52,6 +53,26 @@ export default function UpdateRestaurantSchedules({restaurant_schedule }) {
 
     const isLunchClosed = watch("isLunch_closed_update", false);
     const isDinnerClosed = watch("isDinner_closed_update", false);
+    const selectedDay = watch('week_day_update');
+
+    useEffect(() => {
+
+        //  Find the schedule for the selected day
+        const schedule = restaurant_schedule.find(
+        (s) => s.week_day.toString() === selectedDay
+        );
+        console.log(schedule)
+
+        // Set form fields with the schedule times
+        if (schedule) {
+            setValue('isLunch_closed_update', schedule.is_lunch_closed);
+            setValue('lunch_opening_update', schedule.lunch_opening);
+            setValue('lunch_closing_update', schedule.lunch_closing);
+            setValue('isDinner_closed_update', schedule.is_dinner_closed);
+            setValue('dinner_opening_update', schedule.dinner_opening);
+            setValue('dinner_closing_update', schedule.dinner_closing);
+        }
+    }, [selectedDay, restaurant_schedule, setValue]);
 
     return (
         <>
