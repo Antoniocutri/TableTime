@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ApiResponseClass;
 use App\Http\Requests\RestaurantScheduleRequest;
 use App\Http\Requests\UpdateRestaurantScheduleRequest;
 use App\Models\Restaurant_schedule;
@@ -35,7 +36,7 @@ class RestaurantScheduleController extends Controller
         $request->validated();
 
         try {
-            Restaurant_schedule::create([
+            $restaurant_schedule = Restaurant_schedule::create([
                 'restaurant_id' => $request->user()->restaurants->first()->id,
                 'week_day' => $request->week_day,
                 'is_lunch_closed' => $request->isLunch_closed,
@@ -46,16 +47,10 @@ class RestaurantScheduleController extends Controller
                 'dinner_closing' => $request->dinner_closing,
             ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => __("Schedule added successfully"),
-        ]);
+            return ApiResponseClass::sendResponse($restaurant_schedule, __("Schedule added successfully"), 200);
 
         } catch (\Exception $e){
-            return response()->json([
-                'success' => false,
-                'message' => __("Unexpected error. Please try again later."),
-            ]);
+            return ApiResponseClass::throw($e,  __("Unexpected error. Please try again later."));
         }
     }
 
@@ -84,7 +79,8 @@ class RestaurantScheduleController extends Controller
 
         $request->validated();
 
-        $restaurant_schedule->update([
+        try {
+            $restaurant_schedule = $restaurant_schedule->update([
                 'week_day' => $request->week_day_update,
                 'is_lunch_closed' => $request->isLunch_closed_update,
                 'lunch_opening' => $request->lunch_opening_update,
@@ -94,7 +90,10 @@ class RestaurantScheduleController extends Controller
                 'dinner_closing' => $request->dinner_closing_update,
             ]);
 
-        return 'gii';
+            return ApiResponseClass::sendResponse($restaurant_schedule, __("Schedule updated successfully"), 200);
+        } catch(\Exception $e){
+            return ApiResponseClass::throw($e,  __("Unexpected error. Please try again later."));
+        }
 
     }
 
