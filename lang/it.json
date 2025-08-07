@@ -100,5 +100,6 @@
     "Select the day of the week":"Seleziona il giorno della settimana",
     "Unexpected error. Please try again later.": "Errore imprevisto. Riprova più tardi.",
     "Schedule added successfully":"Orari aggiunti con successo",
+    "Schedule updated successfully":"Orari aggiornati con successo",
     "The schedule for this day has already been added":"Hai già inserito gli orari per questo giorno"
 }
