@@ -55,12 +55,16 @@ export default function UpdateRestaurantSchedules({restaurant_schedule }) {
     const isDinnerClosed = watch("isDinner_closed_update", false);
     const selectedDay = watch('week_day_update');
 
-    useEffect(() => {
-
-        //  Find the schedule for the selected day
-        const schedule = restaurant_schedule.find(
+    //  Find the schedule for the selected day
+    function findSchedule(){
+        return restaurant_schedule.find(
         (s) => s.week_day.toString() === selectedDay
         );
+    }
+
+    useEffect(() => {
+
+        const schedule = findSchedule()
         console.log(schedule)
 
         // Set form fields with the schedule times
