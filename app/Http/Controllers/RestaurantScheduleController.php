@@ -36,15 +36,15 @@ class RestaurantScheduleController extends Controller
 
         try {
             Restaurant_schedule::create([
-            'restaurant_id' => $request->user()->restaurants[0]->id,
-            'week_day' => $request->week_day,
-            'is_lunch_closed' => $request->isLunch_closed,
-            'lunch_opening' => $request->lunch_opening,
-            'lunch_closing' => $request->lunch_closing,
-            'is_dinner_closed' => $request->isDinner_closed,
-            'dinner_opening' => $request->dinner_opening,
-            'dinner_closing' => $request->dinner_closing,
-        ]);
+                'restaurant_id' => $request->user()->restaurants->first()->id,
+                'week_day' => $request->week_day,
+                'is_lunch_closed' => $request->isLunch_closed,
+                'lunch_opening' => $request->lunch_opening,
+                'lunch_closing' => $request->lunch_closing,
+                'is_dinner_closed' => $request->isDinner_closed,
+                'dinner_opening' => $request->dinner_opening,
+                'dinner_closing' => $request->dinner_closing,
+            ]);
 
         return response()->json([
             'success' => true,
@@ -80,7 +80,22 @@ class RestaurantScheduleController extends Controller
      */
     public function update(UpdateRestaurantScheduleRequest $request, string $id)
     {
-        //
+        $restaurant_schedule = Restaurant_schedule::findOrFail($id);
+
+        $request->validated();
+
+        $restaurant_schedule->update([
+                'week_day' => $request->week_day_update,
+                'is_lunch_closed' => $request->isLunch_closed_update,
+                'lunch_opening' => $request->lunch_opening_update,
+                'lunch_closing' => $request->lunch_closing_update,
+                'is_dinner_closed' => $request->isDinner_closed_update,
+                'dinner_opening' => $request->dinner_opening_update,
+                'dinner_closing' => $request->dinner_closing_update,
+            ]);
+
+        return 'gii';
+
     }
 
     /**
