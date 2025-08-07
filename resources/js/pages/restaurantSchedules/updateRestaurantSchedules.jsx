@@ -27,8 +27,24 @@ export default function UpdateRestaurantSchedules({restaurant_schedule }) {
     const onSubmit = async (data) => {
         
         try {
-            console.log(data)
-            const response = await axios.put('/restaurant-schedule', data);
+            let baseUrl = '/restaurant-schedule/'
+
+            // clean opening and closing hour field if is closed
+            if (data.isDinner_closed_update){
+                data.dinner_opening_update = ""
+                data.dinner_closing_update = ""
+            }
+            if (data.isLunch_closed_update){
+                data.lunch_opening_update = ""
+                data.lunch_closing_update = ""
+            }
+
+            console.log( data )
+
+            const schedule = findSchedule()
+            const response = await axios.put(baseUrl + schedule.id, data);
+
+            console.log(response)
 
             if (response.data.success) {
                 setSuccessMessage(response.data.message);
