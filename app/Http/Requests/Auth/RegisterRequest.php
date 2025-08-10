@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use App\Models\User;
 use Illuminate\Validation\Rules;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class RegisterRequest extends FormRequest
 {
@@ -28,6 +29,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'role' => ['required', 'in:customer,owner,admin'],
             'restaurant_name' => ['required_if:role,owner', 'string', 'max:255'],
+            'restaurant_image' => ['image','mimes:jpg,jpeg,png','max:2048'],
             'restaurant_description' => ['nullable','string', 'max:511'],
             'city' => ['required_if:role,owner', 'string', 'max:255'],
             'street' => ['required_if:role,owner', 'string', 'max:255'],
