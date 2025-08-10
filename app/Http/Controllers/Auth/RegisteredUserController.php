@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -45,10 +46,13 @@ class RegisteredUserController extends Controller
             ]);
 
             if ($request->role == 'owner'){
+                $path = $request->file('restaurant_image')->store('restaurants', 'public');
+                
                 Restaurant::create([
                     'name' => $request->restaurant_name,
                     'city' => $request->city,
                     'street' => $request->street,
+                    'image' => $path,
                     'phone' => $request->phone,
                     'description' => $request->restaurant_description,
                     'user_id' => $user->id
