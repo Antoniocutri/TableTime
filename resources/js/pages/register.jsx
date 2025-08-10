@@ -21,6 +21,7 @@ export default function RoleSelect() {
 }
 
   function Register(){
+    let [restaurant_image, setRestaurant_image] = useState('');
     let [restaurant_name, setRestaurant_name] = useState('');
     let [city, setCity] = useState('');
     let [street, setStreet] = useState('');
@@ -143,6 +144,20 @@ export default function RoleSelect() {
         </div>
 
         <div className="mt-4">
+            <TextInput 
+              label='Inserire un immagine' 
+              name='restaurant_image'
+              onChange={(e) => {
+                const file = e.target.files[0];
+                setRestaurant_image(file);
+              }}
+              type='file'
+              accept=".jpg,.jpeg"
+              width='w-100'
+              />
+        </div>
+
+        <div className="mt-4">
           <TextArea
             label='Inserire una descrizione'
             name = 'restaurant_description'
@@ -158,7 +173,7 @@ export default function RoleSelect() {
   const TextInput = ({ label, name, value, onChange, onBlur, error, placeholder = "", type = "text", width = 'w-50' }) => {
   return (
     <>
-      <label htmlFor={name} className="block font-medium text-sm text-gray-700">
+      <label htmlFor={name} className="block font-medium text-sm text-gray-700 form-label">
         {label}
       </label>
       <input
@@ -170,7 +185,7 @@ export default function RoleSelect() {
         onBlur={onBlur}
         placeholder={placeholder}
         error={error}
-        className={"border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm " + width}
+        className={"border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm form-control " + width}
       />
     </>
   );
