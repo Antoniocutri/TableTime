@@ -21,6 +21,7 @@ class RestaurantFactory extends Factory
             'name'=> fake()->company(),
             'description' => fake()->sentence(),
             'street' => fake()->streetName(),
+            'image' => fake()->url(),
             'city' => fake()->city(),
             'phone' => fake()->phoneNumber(),
             'user_id' =>  User::where('role', 'owner')->inRandomOrder()->first()->id,
