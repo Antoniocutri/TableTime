@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantScheduleController;
 use Illuminate\Support\Facades\Route;
@@ -8,17 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-
-    if(request()->user()->role == 'owner'){
-        return view('dashboard_owner',[
-            'user' => request()->user(),
-        ]);
-    }
-    return view('dashboard_customer',[
-        'user' => request()->user(),
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
