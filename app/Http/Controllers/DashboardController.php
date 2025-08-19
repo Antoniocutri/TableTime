@@ -13,11 +13,11 @@ class DashboardController extends Controller
     {
         if($request->user()->role == 'owner'){
             return view('dashboard_owner',[
-                'user' => request()->user(),
+                'restaurant' => $request->user()->restaurants()->first(),
             ]);
         }
         return view('dashboard_customer',[
-            'user' => request()->user(),
+            'user' => $request->user(),
         ]);
     }
 }
