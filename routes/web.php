@@ -9,7 +9,15 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+
+    if(request()->user()->role == 'owner'){
+        return view('dashboard_owner',[
+            'user' => request()->user(),
+        ]);
+    }
+    return view('dashboard_customer',[
+        'user' => request()->user(),
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
