@@ -63,6 +63,7 @@
     "results": "risultati",
     "Save": "Salva",
     "Saved.": "Salvato.",
+    "Edit": "Modifica",
     "Server Error": "Errore server",
     "Service Unavailable": "Servizio non disponibile",
     "Showing": "Mostra",
@@ -101,5 +102,7 @@
     "Unexpected error. Please try again later.": "Errore imprevisto. Riprova più tardi.",
     "Schedule added successfully":"Orari aggiunti con successo",
     "Schedule updated successfully":"Orari aggiornati con successo",
-    "The schedule for this day has already been added":"Hai già inserito gli orari per questo giorno"
+    "The schedule for this day has already been added":"Hai già inserito gli orari per questo giorno",
+    "Address":"Indirizzo",
+    "Phone number":"Numero di telefono"
 }
