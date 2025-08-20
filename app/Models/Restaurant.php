@@ -22,6 +22,8 @@ class Restaurant extends Model
         'user_id',
     ];
 
+    protected $appends = ['image_url'];
+
     public function restaurant_schedules() {
         return $this->hasMany(Restaurant_schedule::class);
     }
@@ -40,5 +42,20 @@ class Restaurant extends Model
 
     public function reviews() {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the full URL of the restaurant's image.
+     *
+     * If an image is stored, it returns the public path using asset('storage/...').
+     * Otherwise, it returns a default fallback image.
+     *
+     * @return string The absolute URL of the restaurant's image
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->image 
+            ? asset('storage/' . $this->image)
+            : asset('images/default-restaurant.jpg');
     }
 }
