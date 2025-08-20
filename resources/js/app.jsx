@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom/client';
 import RoleSelect from './pages/register';
 import AddRestaurantSchedules from './pages/restaurantSchedules/restaurantSchedules';
 import UpdateRestaurantSchedules from './pages/restaurantSchedules/updateRestaurantSchedules';
+import RestaurantDashboard from './pages/restaurant/restaurantDashboard';
 
 window.Alpine = Alpine;
 
@@ -20,6 +21,7 @@ function App() {
   );
 }
 
+// display role select in register view
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('role');
   if (container) {
@@ -31,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// display form to add restaurant schedules
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById('addSchedules');
   if (container) {
@@ -42,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  // display form to update restaurant schedules
   const update_schedules = document.querySelector('#update_schedules');
   if (update_schedules) {
     const props = JSON.parse(update_schedules.getAttribute('data-props'))
@@ -51,5 +55,17 @@ document.addEventListener("DOMContentLoaded", () => {
       </React.StrictMode>
     );
   }
+
+  //display dashboard for restaurant
+  const restaurant = document.querySelector("#restaurantDashboard");
+  if (restaurant){
+    const props = JSON.parse(restaurant.getAttribute('data-props')) 
+    ReactDOM.createRoot(restaurant).render(
+      <React.StrictMode>
+        <RestaurantDashboard {...props} />
+      </React.StrictMode>
+    );
+  }
+
 });
 
