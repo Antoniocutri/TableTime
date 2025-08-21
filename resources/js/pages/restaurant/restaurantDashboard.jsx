@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
+import EditModal from './editRestaurantModal';
 
 export default function RestaurantDashboard({restaurant}){
     const { t } = useTranslation();
