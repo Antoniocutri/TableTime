@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
-export default function EditModal(){
+export default function EditModal({restaurant}){
     const { t } = useTranslation();
     return(
         <>
@@ -16,7 +16,7 @@ export default function EditModal(){
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <Form/>
+                        <Form restaurant={restaurant}/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t('Cancel')}</button>
@@ -29,7 +29,7 @@ export default function EditModal(){
     )
 }
 
-const Form = () => {
+const Form = ({restaurant}) => {
     const { t } = useTranslation();
 
     const methods = useForm({

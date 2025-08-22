@@ -19,7 +19,8 @@ export default function RestaurantDashboard({restaurant}){
                         <div className='text-end'>
                             <Button
                                 text={t('Edit')}
-                                dataTarget="#editRestaurant"/>
+                                dataTarget="#editRestaurant"
+                                restaurant={restaurant}/>
                         </div>
                         <div className="row mt-3 text-center">
                             <div className="col">
@@ -54,11 +55,11 @@ export default function RestaurantDashboard({restaurant}){
     )
 }
 
-const Button = ({dataTarget, text}) =>{
+const Button = ({dataTarget, text, restaurant}) =>{
     return(
         <>
             <button className='btn btn-outline-secondary' data-bs-toggle="modal" data-bs-target={dataTarget}>{text}</button>
-            <EditModal/>
+            <EditModal restaurant={restaurant}/>
         </>
     )
 }
