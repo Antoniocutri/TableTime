@@ -110,6 +110,7 @@ const Form = ({restaurant}) => {
                       label='Inserire una descrizione'
                       name = 'restaurant_description'
                       placeholder = 'Inserire una descrizione'
+                      rules={{required: t('This field is required') }}
                       />
               </div>
             </form>
@@ -143,7 +144,12 @@ const TextInput = ({ label, name, type = "text", rules = {} }) => {
   );
 };
 
-const TextArea = ({label, name, value, onChange, placeholder = ''}) => {
+const TextArea = ({label, name, value, onChange, placeholder = '', rules={}}) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <>
       <label htmlFor={name} className="block font-medium text-sm text-gray-700 text-start">
@@ -156,12 +162,14 @@ const TextArea = ({label, name, value, onChange, placeholder = ''}) => {
         value={value}
         onChange={onChange}
         className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-100"
+        {...register(name, rules)}
     />
+    {errors[name] && <Error error={errors[name].message}/>}
   </>)
 }
 
 const Error = ({error}) =>{
   return (
-    <p className='text-sm text-red-600 space-y-1'>{error}</p>
+    <p className='text-sm text-red-600 space-y-1 text-start'>{error}</p>
   )
 }
