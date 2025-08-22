@@ -37,8 +37,27 @@ const Form = ({restaurant}) => {
     });
     
     const onSubmit = async (data) => {
-      console.log('ciao')
+      console.log(data)
     };
+
+    console.log(restaurant.description)
+    // Set form fields with the restaurant data every time that the modal opens
+    useEffect(() => {
+      const modal = document.getElementById("editRestaurant");
+
+      modal.addEventListener("shown.bs.modal", () => {
+        if (restaurant) {
+          methods.reset({
+            restaurant_name: restaurant.name,
+            city:  restaurant.city,
+            phone: restaurant.phone,
+            street: restaurant.street,
+            restaurant_description: restaurant.description
+          });
+        }
+       });
+
+    }, [restaurant, methods]);
 
     return (
         <>
