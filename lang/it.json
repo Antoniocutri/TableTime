@@ -86,6 +86,7 @@
     "You're logged in!": "Hai fatto l'accesso!",
     "Your email address is unverified.": "Il tuo indirizzo email non è verificato.",
     "The role must be customer or owner":"Il ruolo deve essere cliente o ristoratore",
+    "This field is required":"Questo campo è obbligatorio",
     "Insert a valid phone numer":"Inserire un numero di telefono corretto",
     "Add restaurant schedule": "Aggiungi orari d'apertura",
     "Add restaurant schedule for each day of the week":"Aggiungi orari d'apertura per ogni giorno della settimana ",
