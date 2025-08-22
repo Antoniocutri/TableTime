@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
@@ -8,7 +8,7 @@ export default function EditModal(){
     const { t } = useTranslation();
     return(
         <>
-            <div className="modal fade" id="editRestaurant" tabindex="-1" aria-labelledby="editRestaurantLabel" aria-hidden="true">
+            <div className="modal fade" id="editRestaurant" tabIndex="-1" aria-labelledby="editRestaurantLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -20,7 +20,7 @@ export default function EditModal(){
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t('Cancel')}</button>
-                        <button type="submit" className="btn btn-success">{t('Save')}</button>
+                        <button type="submit" className="btn btn-success" form="editRestaurantForm">{t('Save')}</button>
                     </div>
                     </div>
                 </div>
@@ -30,61 +30,64 @@ export default function EditModal(){
 }
 
 const Form = () => {
-    const {
-            register,
-            handleSubmit,
-            watch,
-            formState: { errors },
-            setError,
-            setValue,
-            getValues,
-            reset
-    } = useForm({
-        mode: 
-        'onBlur'
-        });
+    const { t } = useTranslation();
+
+    const methods = useForm({
+      mode: "onBlur",
+    });
     
     const onSubmit = async (data) => {
+      console.log('ciao')
     };
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-
-              <div class="container text-start">
-                <div class="row">
-                  <div class="col">
+          <FormProvider {...methods}>
+            <form id='editRestaurantForm' onSubmit={methods.handleSubmit(onSubmit)}>
+              <div className="container text-start">
+                <div className="row">
+                  <div className="col">
                     <div className="mt-4">
                         <TextInput 
                         label='Inserire il nome del ristorante' 
                         name='restaurant_name'
+                        rules={{required: t('This field is required') }}
                         />
                     </div>
                   </div>
-                  <div class="col">
+                  <div className="col">
                     <div className="mt-4">
                       <TextInput 
                       label='Inserire la città' 
                       name='city'
+                      rules={{required: t('This field is required') }}
                       />
                     </div>
                   </div>
                 </div>
-                  <div class="row">
-                    <div class="col">
+                  <div className="row">
+                    <div className="col">
                       <div className="mt-4">
                         <TextInput 
                         label="Inserire l'indirizzo" 
                         name='street'
-                        errors={errors}/>
+                        rules={{required: t('This field is required') }}
+                        />
                     </div>
                     </div>
-                    <div class="col">
+                    <div className="col">
                       <div className="mt-4">
                           <TextInput 
                           label="Inserire il numero di telefono" 
                           name='phone'
                           type='tel'
+                          rules={{
+                            required: t('This field is required'),
+                            pattern: {
+                              value: /^(\+39)?\s*\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}$/,
+                              message: t('Insert a valid phone numer')
+                            }
+                          }}
                           />
                       </div>
                     </div>
@@ -98,6 +101,7 @@ const Form = () => {
                   type='file'
                   accept=".jpg,.jpeg"
                   width='w-100'
+                  rules={{required: t('This field is required') }}
                   />
               </div>
 
@@ -109,11 +113,17 @@ const Form = () => {
                       />
               </div>
             </form>
+          </FormProvider>
         </>
     )
 }
 
-const TextInput = ({ label, name, value, onChange, onBlur, errors, placeholder = "", type = "text", width = 'w-50' }) => {
+const TextInput = ({ label, name, type = "text", rules = {} }) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <>
     <div className='text-start'>
@@ -124,13 +134,10 @@ const TextInput = ({ label, name, value, onChange, onBlur, errors, placeholder =
         type={type}
         name={name}
         id={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        placeholder={placeholder}
-        error={errors}
-        className={"border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm form-control" + width}
+        className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm form-control w-100"
+        {...register(name, rules)}
       />
+      {errors[name] && <Error error={errors[name].message}/>}
     </div>
     </>
   );
@@ -139,7 +146,7 @@ const TextInput = ({ label, name, value, onChange, onBlur, errors, placeholder =
 const TextArea = ({label, name, value, onChange, placeholder = ''}) => {
   return (
     <>
-      <label htmlFor={name} className="block font-medium text-sm text-gray-700">
+      <label htmlFor={name} className="block font-medium text-sm text-gray-700 text-start">
           {label}
         </label>
       <textarea
@@ -151,4 +158,10 @@ const TextArea = ({label, name, value, onChange, placeholder = ''}) => {
         className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-100"
     />
   </>)
+}
+
+const Error = ({error}) =>{
+  return (
+    <p className='text-sm text-red-600 space-y-1'>{error}</p>
+  )
 }
