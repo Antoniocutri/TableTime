@@ -37,10 +37,36 @@ const Form = ({restaurant}) => {
     });
     
     const onSubmit = async (data) => {
-      console.log(data)
+
+      try {
+        let baseUrl = '/api/restaurant/'
+
+        const formData = new FormData();
+
+        formData.append("name", data.name);
+        formData.append("city", data.city);
+        formData.append("phone", data.phone);
+        formData.append("street", data.street);
+        formData.append("description", data.description);
+
+        // add image only if exists
+        if (data.restaurant_image && data.restaurant_image[0]) {
+          formData.append("image", data.restaurant_image[0]);
+        }
+
+        const response = await axios.post(baseUrl + restaurant.id, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "X-HTTP-Method-Override": "PUT"
+          }
+        });
+
+        console.log(response);
+      } catch (error) {
+        
+      }
     };
 
-    console.log(restaurant.description)
     // Set form fields with the restaurant data every time that the modal opens
     useEffect(() => {
       const modal = document.getElementById("editRestaurant");
@@ -48,11 +74,11 @@ const Form = ({restaurant}) => {
       modal.addEventListener("shown.bs.modal", () => {
         if (restaurant) {
           methods.reset({
-            restaurant_name: restaurant.name,
+            name: restaurant.name,
             city:  restaurant.city,
             phone: restaurant.phone,
             street: restaurant.street,
-            restaurant_description: restaurant.description
+            description: restaurant.description
           });
         }
        });
@@ -62,14 +88,14 @@ const Form = ({restaurant}) => {
     return (
         <>
           <FormProvider {...methods}>
-            <form id='editRestaurantForm' onSubmit={methods.handleSubmit(onSubmit)}>
+            <form id='editRestaurantForm' encType='multipart/form-data' onSubmit={methods.handleSubmit(onSubmit)}>
               <div className="container text-start">
                 <div className="row">
                   <div className="col">
                     <div className="mt-4">
                         <TextInput 
                         label='Inserire il nome del ristorante' 
-                        name='restaurant_name'
+                        name='name'
                         rules={{required: t('This field is required') }}
                         />
                     </div>
@@ -127,7 +153,7 @@ const Form = ({restaurant}) => {
               <div className="mt-4">
                   <TextArea
                       label='Inserire una descrizione'
-                      name = 'restaurant_description'
+                      name = 'description'
                       placeholder = 'Inserire una descrizione'
                       rules={{required: t('This field is required') }}
                       />
