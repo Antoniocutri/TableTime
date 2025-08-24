@@ -64,7 +64,18 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
     {
-        //
+        $validate = $request->validated();
+
+        try {
+
+            $updatedRestaurant = $this->restaurantRepository->update($validate, $restaurant->id);
+
+            return ApiResponseClass::sendResponse($updatedRestaurant, __("Restaurant updated successfully"), 200);
+
+        } catch (\Exception $e){
+            return ApiResponseClass::throw($e,  __("Unexpected error. Please try again later."));
+        }
+        
     }
 
     /**
