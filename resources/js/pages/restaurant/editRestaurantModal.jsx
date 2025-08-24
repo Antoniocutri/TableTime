@@ -1,6 +1,8 @@
 import React, { useEffect,useState } from 'react';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
@@ -25,6 +27,7 @@ export default function EditModal({restaurant}){
                     </div>
                 </div>
             </div>
+            <ToastContainer position="top-center" autoClose={5000} />
         </>
     )
 }
@@ -61,9 +64,16 @@ const Form = ({restaurant}) => {
           }
         });
 
-        console.log(response);
+        if(response.status === 200){
+          const modalEl = document.querySelector('#editRestaurant');
+          const modal = bootstrap.Modal.getInstance(modalEl);
+          modal.hide();
+
+          toast.success(response.data.message)
+        }
+
       } catch (error) {
-        
+        toast.error(t("Unexpected error. Please try again later."));
       }
     };
 
