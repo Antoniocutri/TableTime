@@ -25,10 +25,9 @@ class StoreRestaurantRequest extends FormRequest
             'name' => ['required','string','max:255'],
             'description' => ['required','string'],
             'street' => ['required','string'],
-            'street_number'=> ['required','string'],
             'city' => ['required','string','max:255'],
+            'restaurant_image' => ['image','mimes:jpg,jpeg,png','max:2048'],
             'phone' => ['required','string','max:20'],
-            'email' => ['required','string','email','lowercase','max:255','unique:restaurants,email']
         ];
     }
 }
