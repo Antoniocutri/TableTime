@@ -1,15 +1,16 @@
-import React, { useEffect,useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 import EditModal from './editRestaurantModal';
+import OffcanvasMenu from './partial/offCanvasMenu';
+import { Offcanvas } from 'bootstrap';
 
 export default function RestaurantDashboard({restaurant}){
     const { t } = useTranslation();
     
     return (
         <>
+            <OffcanvasMenu />
             <div className="container">
                 <div className="row">
                     <div className="col">
