@@ -34,6 +34,10 @@
 
             <!-- Page Content -->
             <main>
+
+                <!-- OffCanvas Menù -->
+                <div id='offcanvas'></div>
+
                 {{ $slot }}
             </main>
         </div>

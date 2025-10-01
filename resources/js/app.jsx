@@ -8,6 +8,7 @@ import RoleSelect from './pages/register';
 import AddRestaurantSchedules from './pages/restaurantSchedules/restaurantSchedules';
 import UpdateRestaurantSchedules from './pages/restaurantSchedules/updateRestaurantSchedules';
 import RestaurantDashboard from './pages/restaurant/restaurantDashboard';
+import OffcanvasMenu from './pages/restaurant/partial/offCanvasMenu';
 
 window.Alpine = Alpine;
 
@@ -67,5 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+
+  const offcanvas = document.getElementById('offcanvas');
+  if (offcanvas) {
+    ReactDOM.createRoot(offcanvas).render(
+      <React.StrictMode>
+        <OffcanvasMenu />
+      </React.StrictMode>
+    );
+  }
 });
 

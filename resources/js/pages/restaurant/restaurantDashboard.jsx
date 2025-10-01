@@ -10,7 +10,6 @@ export default function RestaurantDashboard({restaurant}){
     
     return (
         <>
-            <OffcanvasMenu />
             <div className="container">
                 <div className="row">
                     <div className="col">
