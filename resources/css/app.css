@@ -6,6 +6,10 @@ body {
     background-color: #EFE9DC ;
 }
 
+.offCanvasBackground{
+    background-color: #EFE9DC ;
+}
+
 .btn-primary {
     --bs-btn-color: #fff;
     --bs-btn-bg: #1f2937;

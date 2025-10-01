@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'C:/Users/Utente/Herd/tabletime/resources/css/app.css';
 
 export default function OffcanvasMenu(){
+    const { t } = useTranslation();
 
     document.addEventListener("mousemove", function(e) {
         // if mouse is in first left 75px 
@@ -21,13 +22,16 @@ export default function OffcanvasMenu(){
 
     return ( 
         <>
-            <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div className="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title px-2" id="offcanvasWithBothOptionsLabel">Menù</h5>
                 </div>
-                <div class="offcanvas-body">
-                    <p>Try scrolling the rest of the page to see this option in action.</p>
+                <div className="offcanvas-body offCanvasBackground">
+                    <div className="list-group list-group-flush">
+                        <a href="#" className="list-group-item list-group-item-action">{t("Reservations")}</a>
+                        <a href="#" className="list-group-item list-group-item-action mt-2">{t("Tables")}</a>
+                        <a href="#" className="list-group-item list-group-item-action mt-2">{t("Restaurant schedules")}</a>
+                    </div>
                 </div>
             </div>
         </>
